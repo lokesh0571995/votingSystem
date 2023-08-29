@@ -40,20 +40,18 @@
                         </a>
                     </li>
 
-                    <!-- <li class="sidebar-list">
+                    <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="users"></i>
-                            <span>Banner</span>
+                            <span>Voter User</span>
                         </a>
                         <ul class="sidebar-submenu">
                             <li>
-                                <a href="">All Banner</a>
+                                <a href="{{url('admin/voter/index')}}">All Voter List</a>
                             </li>
-                            <li>
-                                <a href="">Add new banner</a>
-                            </li>
+                           
                         </ul>
-                    </li> -->
+                    </li>
 
                     
                     <!-- <li class="sidebar-main-title sidebar-main-title-2">

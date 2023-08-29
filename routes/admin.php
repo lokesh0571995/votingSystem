@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
-
+use App\Http\Controllers\Admin\VoterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +45,15 @@ use App\Http\Controllers\Admin\AdminController;
 
             Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
 
+
+            //voter route
+            Route::get('voter/index', [VoterController::class, 'index'])->name('index');
+            Route::get('voter/create', [VoterController::class, 'create'])->name('create');
+            Route::post('voter/store', [VoterController::class, 'store'])->name('store');
+            Route::get('voter/edit/{id}', [VoterController::class, 'edit'])->name('edit');
+            Route::post('voter/update/{id}', [VoterController::class, 'update'])->name('update');
+            Route::get('voter/view/{id}', [VoterController::class, 'view'])->name('view');
+            Route::get('voter/delete/{id}', [VoterController::class, 'destroy'])->name('destroy');
             
     });
 

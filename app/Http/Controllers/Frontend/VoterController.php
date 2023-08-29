@@ -1,35 +1,54 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Validator;
+use Auth;
+use Hash;
+use Validate;
 use Session;
-use Log;
-use DB;
 
-class AdminController extends Controller
+class VoterController extends Controller
 {
 
-    public function dashboard(){
+    public function registration(){
 
-        return view('admin-view/dashboard');
+        return view('frontend.voter.register');
+    }
+
+
+    public function postRegistration(Request $request){
+
+        $request->validate([
+            'name'      => 'required|min:2|max:100',
+            'email'     => 'required|email|unique:users,email|max:250',
+            'password'  => 'required|min:8',
+
+        ]);
+
+        $user = new User();
+        $user->name      = $request->name;
+        $user->email     = $request->email;
+        $user->password  = Hash::make($request->password);
+        $user->user_type = 'Voter';
+        $user->save();
+
+        return redirect('voter/login')->with('success', 'Voter registered successfully!');
 
     }
 
-    public function login()
+    public function createLogin()
     {
-        return view('admin-view/login');
+        return view('frontend.voter.login');
     }
 
-    public function createLogin(Request $request)
+
+    public function login(Request $request)
     {
         try {
                 $request->validate([
-                
                     'email'      => 'required|email|max:250',
                     'password'   => 'required|min:8',
                 
@@ -42,20 +61,20 @@ class AdminController extends Controller
 
                     $user  = Auth::user(); 
                    
-                    if($user->user_type =='Admin'){
+                    if($user->user_type =='Voter'){
                        
-                        return redirect()->intended('admin/dashboard');
+                        return redirect()->intended('/home')->with(['success'=>'Voter Login successfully!']);
                     }
                     
                 } 
                 else{ 
-                    return redirect()->to('admin/login')->with(['success'=>'Email or Password is wrong!']); 
+                    return redirect()->to('voter/login')->with(['error'=>'Email or Password is wrong!']); 
                 } 
 
               
             }catch (\Exception $e) {
               
-                return redirect()->to('admin/login')->with(['success'=>'User not found!']); 
+                return redirect()->to('voter/login')->with(['error'=>'User not found!']); 
             }    
     }
 
@@ -63,12 +82,13 @@ class AdminController extends Controller
 
         Session::flush();
         Auth::logout();
-        return redirect()->to('admin/login')->with(['success'=>'Admin logout successfully!']); 
+        return redirect()->to('/home')->with(['success'=>'Voter logout successfully!']); 
     }
+
 
     public function edit($id){
         $user = User::where('id', base64_decode($id))->first();
-        return view('admin-view.admin.profile',compact('user'));
+        return view('frontend.voter.profile',compact('user'));
     }
 
     public function update(Request $request,$id) {
@@ -90,7 +110,7 @@ class AdminController extends Controller
 
     public function changePassword($id){
         $user = User::where('id', base64_decode($id))->first();
-        return view('admin-view.admin.change_password',compact('user'));
+        return view('frontend.voter.change_password',compact('user'));
     }
 
     public function updatePassword(Request $request,$id)
@@ -100,10 +120,11 @@ class AdminController extends Controller
             'confirm_password' => 'required',
         ]);
 
-        $admin = User::where('id',base64_decode($id))->where('user_type','Admin')->first();
+        $admin = User::where('id',base64_decode($id))->where('user_type','Voter')->first();
         $admin->password = bcrypt($request['password']);
         $admin->save();
         return redirect()->back()->with("success", "Password updated successfully!");
        
     }
+
 }

@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\VoterController;
+use App\Http\Controllers\Frontend\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/home', function () {
+    return view('frontend/home');
+});
+
+Route::get('/home', [HomeController::class, 'home'])->name('home');
+
+Route::get('voter/login', [VoterController::class, 'createLogin'])->name('createLogin');
+Route::post('voter/login', [VoterController::class, 'Login'])->name('Login'); 
+Route::get('voter/register', [VoterController::class, 'registration'])->name('registration');
+Route::post('voter/post-registration', [VoterController::class, 'postRegistration'])->name('postRegistration');
+
+Route::group(['middleware' => ['auth','users']], function() {
+
+    Route::get('voter/logout', [VoterController::class, 'logout'])->name('logout');
+
+    /**
+     * update profile Routes
+     */
+    Route::get('voter/edit-profile/{id}', [VoterController::class, 'edit'])->name('edit');
+    Route::post('voter/update-profile/{id}', [VoterController::class, 'update'])->name('update');
+        /**
+     * change password Routes
+     */
+    Route::get('voter/change-password/{id}', [VoterController::class, 'changePassword'])->name('chnage-password');
+    Route::post('voter/update-password/{id}', [VoterController::class, 'updatePassword'])->name('update-password');
+
 });
