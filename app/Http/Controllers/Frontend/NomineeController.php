@@ -55,7 +55,7 @@ class NomineeController extends Controller
         $nominee->category_id   = $request->category_id;
         $nominee->save();
 
-        return redirect('candidate/index')->with('success', 'Nominee added successfully!');
+        return redirect('nimination/list')->with('success', 'Nominee added successfully!');
 
     }
 }

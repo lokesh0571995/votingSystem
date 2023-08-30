@@ -42,13 +42,11 @@ Route::group(['middleware' => ['auth','users']], function() {
     Route::get('voter/change-password/{id}', [VoterController::class, 'changePassword'])->name('chnage-password');
     Route::post('voter/update-password/{id}', [VoterController::class, 'updatePassword'])->name('update-password');
 
-});
 
-
-Route::group(['middleware' => ['auth']], function() {
-
-    Route::get('candidate/index', [NomineeController::class, 'index'])->name('index');
+    Route::get('nimination/list', [NomineeController::class, 'index'])->name('index');
     Route::post('candidate/add', [NomineeController::class, 'nomineeAdd'])->name('nomineeAdd');
 
 });
+
+
 

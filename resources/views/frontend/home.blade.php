@@ -10,7 +10,7 @@
     <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
       <h1>Award Online Voting System</h1>
       @if(Auth::check())
-      <a href="{{url('candidate/index')}}"><h4>Nomination</h4></a>
+      <a href="{{url('nimination/list')}}"><h4>Nomination</h4></a>
       @else
       <a href="{{url('voter/login')}}"><h4>Nomination</h4></a>
       @endif
