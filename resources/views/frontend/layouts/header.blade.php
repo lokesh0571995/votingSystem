@@ -22,7 +22,7 @@
           <li class="dropdown"><a href="#"><span>SignUp</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="{{url('voter/register')}}">Voter Register</a></li>
-              <li><a href="#">Candidate Register</a></li>
+              <li><a href="{{url('candidate/index')}}">Nominations Page</a></li>
              
             </ul>
           </li>

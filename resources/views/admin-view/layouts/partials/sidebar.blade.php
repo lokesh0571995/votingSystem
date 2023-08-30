@@ -53,6 +53,63 @@
                         </ul>
                     </li>
 
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <i data-feather="users"></i>
+                            <span>Category</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="{{url('admin/category/index')}}">All Category List</a>
+                            </li>
+
+                            <li>
+                                <a href="{{url('admin/category/create')}}">Add Category</a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <i data-feather="users"></i>
+                            <span>Candidate</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="{{url('admin/candidate/index')}}">All Candidate List</a>
+                            </li>
+
+                            <li>
+                                <a href="{{url('admin/candidate/create')}}">Add Candidate</a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+
+                   
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <i data-feather="users"></i>
+                            <span>Nominees</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="{{url('admin/nominie/index')}}">All Nominie List</a>
+                            </li>
+
+                            <li>
+                                <a href="{{url('admin/nominie/approve-nominie')}}">All Approved Nominie</a>
+                            </li>
+
+                            <li>
+                                <a href="{{url('admin/nominie/reject-nominie')}}">All Rejected Nominie</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
                     
                     <!-- <li class="sidebar-main-title sidebar-main-title-2">
                         <div>

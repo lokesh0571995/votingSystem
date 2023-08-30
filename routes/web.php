@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\VoterController;
 use App\Http\Controllers\Frontend\LoginController;
+use App\Http\Controllers\Frontend\NomineeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,3 +43,12 @@ Route::group(['middleware' => ['auth','users']], function() {
     Route::post('voter/update-password/{id}', [VoterController::class, 'updatePassword'])->name('update-password');
 
 });
+
+
+Route::group(['middleware' => ['auth']], function() {
+
+    Route::get('candidate/index', [NomineeController::class, 'index'])->name('index');
+    Route::post('candidate/add', [NomineeController::class, 'nomineeAdd'])->name('nomineeAdd');
+
+});
+
