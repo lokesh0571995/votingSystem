@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\VoterController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\NomineeController;
+use App\Http\Controllers\Frontend\VoteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,9 +43,15 @@ Route::group(['middleware' => ['auth','users']], function() {
     Route::get('voter/change-password/{id}', [VoterController::class, 'changePassword'])->name('chnage-password');
     Route::post('voter/update-password/{id}', [VoterController::class, 'updatePassword'])->name('update-password');
 
-
+    //nomination list
     Route::get('nimination/list', [NomineeController::class, 'index'])->name('index');
     Route::post('candidate/add', [NomineeController::class, 'nomineeAdd'])->name('nomineeAdd');
+
+
+    //vote list
+    Route::get('voting/list', [VoteController::class, 'voting'])->name('voting');
+    Route::post('stripe', [VoteController::class, 'stripe'])->name('stripe');
+    Route::post('payment', [VoteController::class, 'payment'])->name('payment');
 
 });
 

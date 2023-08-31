@@ -11,8 +11,15 @@
       <h1>Award Online Voting System</h1>
       @if(Auth::check())
       <a href="{{url('nimination/list')}}"><h4>Nomination</h4></a>
+      <br>
+      <a href="{{url('voting/list')}}"><h4>Voting</h4></a>
+
       @else
       <a href="{{url('voter/login')}}"><h4>Nomination</h4></a>
+
+      <br>
+      <a href="{{url('voter/login')}}"><h4>Voting</h4></a>
+      
       @endif
     </div>
     <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
