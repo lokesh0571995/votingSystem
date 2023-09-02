@@ -110,6 +110,53 @@
                         </ul>
                     </li>
 
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <i data-feather="users"></i>
+                            <span>Voting</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="{{url('admin/vote/index')}}">All Vote History</a>
+                            </li>
+
+
+                            <li>
+                                <a href="{{url('admin/vote/voter-count-list')}}">All Nominie Vote Count List</a>
+                            </li>
+
+                            <li>
+                                <a href="{{url('admin/teacher/teacher-vote-count-list')}}">Teacher Vote Count List</a>
+                            </li>
+
+                            <li>
+                                <a href="{{url('admin/student/student-vote-count-list')}}">Student Vote Count List</a>
+                            </li>
+                            <li>
+                                <a href="{{url('admin/school/school-vote-count-list')}}">School Vote Count List</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <i data-feather="users"></i>
+                            <span>Payment</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="{{url('admin/payment/index')}}">All Payment History</a>
+                            </li>
+
+
+                            <li>
+                                <a href="{{url('admin/payment/payment-list')}}">Voter Total Payment</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
                     
                     <!-- <li class="sidebar-main-title sidebar-main-title-2">
                         <div>

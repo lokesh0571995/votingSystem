@@ -28,7 +28,7 @@ class VoteController extends Controller
      */
     public function voting()
     {
-        $approvedNominie = Nominie::where('status',1)->get();
+        $approvedNominie = Nominie::where('user_id',Auth::id())->where('status',1)->get();
 
         return view('frontend.voting_list',compact('approvedNominie'));
     }
@@ -52,69 +52,75 @@ class VoteController extends Controller
 
     public function payment(Request $request){
        
-        $request->validate([
-            'card_holder_name'   => 'required',
-            'card_number'        => 'required',
-            'cvc'                => 'required|numeric',
-            'expiry_month'       => 'required|numeric',
-            'expiry_year'        => 'required|numeric',
-          
-        ]);
-        
-        
-        $amount       =$request->amount;
-        $candidate_id =$request->nominie_id;
-
-            $stripe = Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-            try {
-                $response = \Stripe\Token::create(array(
-                    "card" => array(
-                        "number"    => $request->input('card_number'),
-                        "exp_month" => $request->input('expiry_month'),
-                        "exp_year"  => $request->input('expiry_year'),
-                        "cvc"       => $request->input('cvc')
-                    )));
-                if (!isset($response['id'])) {
-                    return redirect()->back();
-                }
-                $charge = \Stripe\Charge::create([
-                    'card'        => $response['id'],
-                    'currency'    => 'R',
-                    'amount'      =>  $amount * 100,
-                    'description' => 'Stripe Payment',
-                ]);
+        //stripe payment gateway
+        if($request->pamentMode == 'stripe'){
+            
+            $request->validate([
+                'card_holder_name'   => 'required',
+                'card_number'        => 'required',
+                'cvc'                => 'required|numeric',
+                'expiry_month'       => 'required|numeric',
+                'expiry_year'        => 'required|numeric',
+              
+            ]);
+            
+            
+            $amount       =$request->amount;
+            $candidate_id =$request->nominie_id;
     
-                if($charge['status'] == 'succeeded') {
-
-                    $payment = new Payment();
-                    $payment->user_id        = Auth::id();
-                    $payment->amount         = $amount;
-                    $payment->payment_method = 'stripe online';
-                    $payment->transaction_id =  $charge['status']['id'];
-                    $payment->save();
-
-                    if($payment->save()){
-
-                        $vote = new Vote();
-                        $vote->user_id        = Auth::id();
-                        $vote->candidate_id   = $candidate_id;
-                        $vote->payment_id     = $payment->id;
-                        $vote->save();
+                $stripe = Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                try {
+                    $response = \Stripe\Token::create(array(
+                        "card" => array(
+                            "number"    => $request->input('card_number'),
+                            "exp_month" => $request->input('expiry_month'),
+                            "exp_year"  => $request->input('expiry_year'),
+                            "cvc"       => $request->input('cvc')
+                        )));
+                    if (!isset($response['id'])) {
+                        return redirect()->back();
                     }
-                    return redirect()->back()->with('success', 'Voted Successfully!');
+                    $charge = \Stripe\Charge::create([
+                        'card'        => $response['id'],
+                        'currency'    => 'R',
+                        'amount'      =>  $amount * 100,
+                        'description' => 'Stripe Payment',
+                    ]);
+        
+                    if($charge['status'] == 'succeeded') {
     
-                } else {
-                    return redirect()->back()->with('error', 'something went to wrong.');
+                        $payment = new Payment();
+                        $payment->user_id        = Auth::id();
+                        $payment->amount         = $amount;
+                        $payment->payment_method = 'stripe online';
+                        $payment->transaction_id =  $charge['status']['id'];
+                        $payment->save();
+    
+                        if($payment->save()){
+    
+                            $vote = new Vote();
+                            $vote->user_id        = Auth::id();
+                            $vote->candidate_id   = $candidate_id;
+                            $vote->payment_id     = $payment->id;
+                            $vote->save();
+                        }
+                        return redirect()->back()->with('success', 'Voted Successfully!');
+        
+                    } else {
+                        return redirect()->back()->with('error', 'something went to wrong.');
+                    }
+        
                 }
+                catch (Exception $e) {
+                    return $e->getMessage();
+                }
+     
+           
+            return redirect()->back()->with('success','Voted Successfully!');
     
-            }
-            catch (Exception $e) {
-                return $e->getMessage();
-            }
- 
-       
-        return redirect()->back()->with('success','Voted Successfully!');
 
+        }
+        
     }
 
     // public function payment(Request $request){

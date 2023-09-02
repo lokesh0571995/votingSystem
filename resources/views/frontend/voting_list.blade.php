@@ -63,11 +63,11 @@
 
           <h4 class="heading">select payment mode</h4>
           <label>
-            <input type="radio" name="pamentMode" id="cod" value="stripe_online" checked>STRIPE PAYMENT
+            <input type="radio" name="pamentMode" id="cod" value="stripe" checked>STRIPE PAYMENT
         </label>
        
         <label>
-            <input type="radio" name="pamentMode" id="paypal" value="mti_online"> MTI MOBILE PAYMENT
+            <input type="radio" name="pamentMode" id="paypal" value="mti_mobile"> MTI MOBILE PAYMENT
         </label>
     
           <div class="text-center"><button type="submit">Submit</button></div>

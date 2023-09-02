@@ -22,6 +22,11 @@ class Vote extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function nominie()
+    {
+        return $this->belongsTo(Nominie::class);
+    }
+
     public function payment()
     {
         return $this->belongsTo(Payment::class);

@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\VoterController;
 use App\Http\Controllers\Admin\CandidateController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\NomineeController;
+use App\Http\Controllers\Admin\VoteController;
+use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\WinnerRankingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,6 +88,42 @@ use App\Http\Controllers\Admin\NomineeController;
             Route::get('nominie/delete/{id}', [NomineeController::class, 'destroy'])->name('destroy');
             Route::get('nominie/approve-nominie', [NomineeController::class, 'approveNominie'])->name('approveNominie');
             Route::get('nominie/reject-nominie', [NomineeController::class, 'rejectNominie'])->name('rejectNominie');
+
+
+            //vote route
+            Route::get('vote/index', [VoteController::class, 'index'])->name('index');
+            Route::get('Vote/create', [VoteController::class, 'create'])->name('create');
+            Route::post('Vote/store', [VoteController::class, 'store'])->name('store');
+            Route::get('Vote/edit/{id}', [VoteController::class, 'edit'])->name('edit');
+            Route::put('Vote/update/{id}', [VoteController::class, 'update'])->name('update');
+            Route::get('Vote/view/{id}', [VoteController::class, 'show'])->name('show');
+            Route::get('Vote/delete/{id}', [VoteController::class, 'destroy'])->name('destroy');
+            Route::get('vote/voter-count-list', [VoteController::class, 'voteCountList'])->name('voteCountList');
+            Route::get('teacher/teacher-vote-count-list', [VoteController::class, 'teacherVoteCountList'])->name('teacherVoteCountList');
+            Route::get('student/student-vote-count-list', [VoteController::class, 'studentVoteCountList'])->name('studentVoteCountList');
+            Route::get('school/school-vote-count-list', [VoteController::class, 'schoolVoteCountList'])->name('schoolVoteCountList');
+
+
+            //vote route
+            Route::get('payment/index', [PaymentController::class, 'index'])->name('index');
+            Route::get('payment/create', [PaymentController::class, 'create'])->name('create');
+            Route::post('payment/store', [PaymentController::class, 'store'])->name('store');
+            Route::get('payment/edit/{id}', [PaymentController::class, 'edit'])->name('edit');
+            Route::put('payment/update/{id}', [PaymentController::class, 'update'])->name('update');
+            Route::get('payment/view/{id}', [PaymentController::class, 'show'])->name('show');
+            Route::get('payment/delete/{id}', [PaymentController::class, 'destroy'])->name('destroy');
+            Route::get('payment/payment-list', [PaymentController::class, 'paymentList'])->name('paymentList');
+
+             //winner ranking route
+             Route::get('rank/index', [WinnerRankingController::class, 'index'])->name('index');
+             Route::get('rank/create', [WinnerRankingController::class, 'create'])->name('create');
+             Route::post('rank/store', [WinnerRankingController::class, 'store'])->name('store');
+             Route::get('rank/edit/{id}', [WinnerRankingController::class, 'edit'])->name('edit');
+             Route::put('rank/update/{id}', [WinnerRankingController::class, 'update'])->name('update');
+             Route::get('rank/view/{id}', [WinnerRankingController::class, 'show'])->name('show');
+             Route::get('rank/delete/{id}', [WinnerRankingController::class, 'destroy'])->name('destroy');
+          
+             
             
     });
 
